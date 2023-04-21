@@ -14,6 +14,8 @@ const BoxRows = () => {
         } else if (parseInt(row.rankInten) === -1) {
             rankIntenText = row.rankInten;
             rankIntenColor = 'blue';
+        }else {
+            rankIntenText = '-';
         }
 
         let openDt = new Date(row.openDt);
