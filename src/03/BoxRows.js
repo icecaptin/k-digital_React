@@ -1,6 +1,10 @@
 import mvlist from "./moviedata.json"
 
 const BoxRows = () => {
+
+    const showMv = (row) => {
+        console.log(row.openDt);
+    }
     let trTags = [];
     for (let row of mvlist) {
         console.log(row.rank, row.movieNm, row.salesAmt, row.rankInten);
@@ -14,7 +18,7 @@ const BoxRows = () => {
         } else if (parseInt(row.rankInten) === -1) {
             rankIntenText = row.rankInten;
             rankIntenColor = 'blue';
-        }else {
+        } else {
             rankIntenText = '-';
         }
 
@@ -22,7 +26,7 @@ const BoxRows = () => {
         let openDtFormatted = `${openDt.getFullYear()}년 ${String(openDt.getMonth() + 1).padStart(2, '0')}월 ${String(openDt.getDate()).padStart(2, '0')}일`;
 
         trTags.push(
-            <tr key={row.rank}>
+            <tr key={row.rank} onClick={() => showMv(row)}>
                 <td>{row.rank}</td>
                 <td>{openDtFormatted}</td>
                 <td>{row.movieNm}</td>
@@ -36,7 +40,14 @@ const BoxRows = () => {
     }
     return (
         <>
-            {trTags}
+            <tbody>
+                {trTags}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>결과출력: {showMv}</td>
+                </tr>
+            </tfoot>
         </>
     )
 }

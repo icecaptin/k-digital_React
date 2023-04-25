@@ -1,8 +1,8 @@
 import BoxRows from "./BoxRows";
 
 
-const Box = () => {
-    
+const BoxBox = () => {
+
     return (
         <>
             <main className="container">
@@ -20,13 +20,11 @@ const Box = () => {
                                 <th scope="col">누적매출액</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <BoxRows />
-                        </tbody>
+                        <BoxRows />
                     </table>
                 </article>
             </main>
         </>
     )
 }
-export default Box;
+export default BoxBox;
