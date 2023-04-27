@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import AirJson from './AirJson';
 import aircondition from '../05_aircondition/dataFrcst.json';
+import aircondition2 from '../05_aircondition/dataFrcst_원본.json';
 
 const AirTable = () => {
     const [selectedDate, setSelectedDate] = useState("2023-02-02");
-
+    const dtKey = ["frcstOneDt", "frcstTwoDt", "frcstThreeDt", "frcstFourDt"]
+    // dtKey.map((aircondition2) => console.log(data[aircondition2]));
     const handleDateClick = (e) => {
         setSelectedDate(e.target.textContent);
     }
