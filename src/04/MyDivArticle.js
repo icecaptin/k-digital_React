@@ -34,11 +34,11 @@ const MyDivArticle = ({aname}) => {
             </ul>
             { n === '1' && 
               <footer>
-                <h2><span onClick={() => like()}>❤️</span> {cnt}</h2>
+                <h2><span onClick={() => like()}>✅</span> {cnt}</h2>
               </footer>
             }
         </article>
     );
 }
 
-export default MyDivArticle ;
+export default MyDivArticle;

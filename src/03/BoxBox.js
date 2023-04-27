@@ -1,5 +1,5 @@
 import BoxRows from "./BoxRows";
-
+import './BoxBox.moudle.css';
 
 const BoxBox = () => {
 
@@ -11,7 +11,7 @@ const BoxBox = () => {
                     {/* <input type="date" class="container" id="datePicker"></input> */}
                     <table>
                         <thead>
-                            <tr>
+                            <tr className="tr1">
                                 <th scope="col">순위</th>
                                 <th score="col">개봉일</th>
                                 <th scope="col">영화명</th>

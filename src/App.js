@@ -9,10 +9,10 @@ import AirTable from './05_aircondition/AirTable';
 function App() {
   return (
     <>
-      {/* <Hello />
-      <MyClock />
+      {/* <Hello /> */}
+      {/* <MyClock /> */}
       
-      <MyDiv /> */}
+      {/* <MyDiv /> */}
       {/* <AirTable /> */}
       <BoxBox />
 

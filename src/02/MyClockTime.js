@@ -25,8 +25,7 @@ const MyClockTime = () => {
 
     return (
         <>
-            <h1>{time}</h1>
-            <h1>{date}</h1>
+            <h1>{time} // {date}</h1>
         </>
     );
 }
