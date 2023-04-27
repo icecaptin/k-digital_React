@@ -40,7 +40,7 @@ const BoxRows = () => {
     ).padStart(2, "0")}월 ${String(openDt.getDate()).padStart(2, "0")}일`;
 
     return (
-      <tr className="trcl1"key={row.rank} onClick={() => handleRowClick(row)}>
+      <tr className="trcl1" key={row.rank} onClick={() => handleRowClick(row)}>
         <td>{row.rank}</td>
         <td>{openDtFormatted}</td>
         <td>{row.movieNm}</td>

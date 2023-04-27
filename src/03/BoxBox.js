@@ -5,7 +5,7 @@ const BoxBox = () => {
 
     return (
         <>
-            <main className="container">
+            <main className="container" data-theme="dark">
                 <article>
                     <header><h1>박스오피스</h1></header>
                     {/* <input type="date" class="container" id="datePicker"></input> */}

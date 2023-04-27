@@ -1,3 +1,7 @@
 .tr1{
-    background-color:aquamarine;
+    background-color:azure;
+}
+.tr1 th{
+    color: black;
+    text-align: center;
 }
