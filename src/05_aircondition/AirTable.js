@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import aircondition from "../05_aircondition/dataFrcst_원본.json";
+import aircondition from "../05_aircondition/dataFrcst.json";
 import styles from './AirTable.moudle.css';
 
 const AirTable = () => {
