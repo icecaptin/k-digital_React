@@ -1,0 +1,19 @@
+.result-container {
+  display:flex;
+}
+
+.result-container div {
+  flex: 1;
+}
+.spnormal{
+  color:black;
+}
+.splow{
+  color:blue;
+}
+.spmoderate{
+  color:green;
+}
+.sphigh{
+  color:red;
+}

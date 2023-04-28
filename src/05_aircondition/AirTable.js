@@ -1,34 +1,59 @@
 import React, { useState } from 'react';
-import AirJson from './AirJson';
-import aircondition from '../05_aircondition/dataFrcst.json';
-import aircondition2 from '../05_aircondition/dataFrcst_원본.json';
+import aircondition from "../05_aircondition/dataFrcst_원본.json";
+import styles from './AirTable.moudle.css';
 
 const AirTable = () => {
-    const [selectedDate, setSelectedDate] = useState("2023-02-02");
-    const dtKey = ["frcstOneDt", "frcstTwoDt", "frcstThreeDt", "frcstFourDt"]
-    // dtKey.map((aircondition2) => console.log(data[aircondition2]));
-    const handleDateClick = (e) => {
-        setSelectedDate(e.target.textContent);
-    }
 
-    const getAirDataByDate = (date) => {
-        return aircondition[date];
-    }
+    const dtKey = ["frcstOneDt", "frcstTwoDt", "frcstThreeDt", "frcstFourDt"];
+    const cnResult = ["frcstOneCn", "frcstTwoCn", "frcstThreeCn", "frcstFourCn"];
+
+    // dtcn 객체 생성
+    const dtcn = {};
+    dtKey.forEach((key, idx) => {
+        const cn = aircondition[cnResult[idx]];
+        const cnArr = cn.split(',');
+        const cnObj = {};
+        cnArr.forEach(item => {
+            const [type, level] = item.split(':');
+            cnObj[type] = level.trim();
+        });
+        dtcn[aircondition[key]] = cnObj;
+    });
+
+    const [clickedData, setClickedData] = useState({});
+
+    const handleButtonClick = (dt) => {
+        setClickedData(dtcn[dt]);
+    };
 
     return (
-        <>
-            <article className="container">
-                <div className="grid">
-                    <button onClick={handleDateClick}>2023-02-02</button>
-                    <button onClick={handleDateClick}>2023-02-03</button>
-                    <button onClick={handleDateClick}>2023-02-04</button>
-                    <button onClick={handleDateClick}>2023-02-05</button>
+        <article>
+            <div className="container">
+
+                <h1>공기질 예측</h1>
+                <div className="grid parent">
+                    {dtKey.map((key, idx) => (
+                        <button key={`dt${idx}`} className="btns" onClick={() => handleButtonClick(aircondition[key])}>
+                            {aircondition[key]}
+                        </button>
+                    ))}
                 </div>
-                <div>
-                    <AirJson airData={getAirDataByDate(selectedDate)} />
+                <div className="result-container">
+                    {Object.keys(clickedData).map((type, idx) => (
+                        <div key={`clickedData${idx}`}>
+                            <span className={styles.spnormal}>{type}</span>
+                            {clickedData[type] === '낮음' ? (
+                                <span className={styles.splow}>{clickedData[type]}</span>
+                            ) : clickedData[type] === '보통' ? (
+                                <span className={styles.spmoderate}>{clickedData[type]}</span>
+                            ) : (
+                                <span className={styles.sphigh}>{clickedData[type]}</span>
+                            )}
+                        </div>
+                    ))}
                 </div>
-            </article>
-        </>
+            </div >
+        </article>
     );
 };
 
