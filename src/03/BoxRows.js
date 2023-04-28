@@ -1,6 +1,6 @@
 import mvlist from "./moviedata.json";
 import React, { useState, useEffect } from "react";
-import './BoxRows.moudle.css';
+import './BoxRows.module.css';
 
 const BoxRows = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
