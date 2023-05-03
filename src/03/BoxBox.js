@@ -1,5 +1,5 @@
 import BoxRows from "./BoxRows";
-import './BoxBox.moudle.css';
+import './BoxBox.module.css';
 
 const BoxBox = () => {
 
