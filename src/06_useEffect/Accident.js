@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import datat from "./datat.json";
 import AccidentNav2 from './AccidentNav2';
 import AccidentNav1 from './AccidentNav1';
-import styles from './Accident.module.css';
 
 const Accident = () => {
   const accidents = datat.data;
