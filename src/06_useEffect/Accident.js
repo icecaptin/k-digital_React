@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import datat from "./datat.json";
 import AccidentNav2 from './AccidentNav2';
 import AccidentNav1 from './AccidentNav1';
+import styles from './Accident.module.css';
 
 const Accident = () => {
   const accidents = datat.data;
@@ -13,16 +14,11 @@ const Accident = () => {
   const [sel2, setSel2] = useState([]);  //중분류 선택
   const [selData, setSelData] = useState({});
 
-  useEffect(() => {
-    console.log('Taccident sel1 useeffect []', sel1);
-  }, []);
 
   useEffect(() => {
-    console.log('Taccident sel1 useeffect [sel1]', sel1);
   }, [sel1]);
 
   useEffect(() => {
-    console.log('Taccident sel2 useeffect [sel2]', sel2);
     let temp = accidents.filter((item) => item.사고유형_대분류 === sel2[0] && item.사고유형_중분류 === sel2[1])
     setSelData(temp[0]);
   }, [sel2]);

@@ -1,8 +1,10 @@
-const AccidentNav1 = ({c1, sel1, setSel1}) => {
+import styles from './Accident.module.css';
 
-    const btTag = c1.map((item) => 
-    <li key={item}>
-        <button onClick={()=> setSel1(item)}>{item}</button>
+const AccidentNav1 = ({ c1, sel1, setSel1 }) => {
+
+    const btTag = c1.map((item) =>
+        <li key={item}>
+            <button className={item === '차대사람' ? styles['car-person'] : ''} onClick={() => setSel1(item)}>{item}</button>
         </li>
     );
     return (

@@ -1,0 +1,13 @@
+.contentul {
+    display: flex;
+}
+
+.contentli {
+    padding-left: 35px;
+    gap: 20px;
+    list-style-type: none;
+}
+.car-person {
+    background-color: rgb(161, 69, 69);
+    border: none;
+  }
