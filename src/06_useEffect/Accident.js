@@ -24,12 +24,9 @@ const Accident = () => {
   }, [sel2]);
 
   useEffect(() => {
-    console.log('Taccident selData useeffect', selData);
   }, [selData]);
 
   useEffect(() => {
-    console.log('Taccident sel1 useeffect', sel1);
-    console.log('Taccident sel2 useeffect', sel2);
   });
 
   return (
