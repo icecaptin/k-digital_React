@@ -6,14 +6,14 @@
   flex: 1;
 }
 .spnormal{
-  color:black;
+  color:white;
 }
 .splow{
-  color:blue;
+  color:lightblue;
 }
 .spmoderate{
-  color:green;
+  color:lime;
 }
 .sphigh{
-  color:red;
+  color:rgb(190, 93, 93);
 }
