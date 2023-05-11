@@ -1,9 +1,9 @@
-import mvlist from "./moviedata.json";
 import React, { useState, useEffect } from "react";
 import './BoxRows.module.css';
 
-const BoxRows = () => {
+const BoxRows2 = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [movieList, setMovieList] = useState([]);
 
   const handleRowClick = (row) => {
     setSelectedMovie(row);
@@ -17,8 +17,28 @@ const BoxRows = () => {
       </>
     );
   };
-  
-  const trTags = mvlist.map((row) => {
+
+  useEffect(() => {
+    const fetchMovieList = async () => {
+      try {
+        if (selectedMovie) {
+          return;
+        }
+        let formattedDate = selectedMovie.replaceAll("-", "");
+        const apiUrl = `http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=f5eef3421c602c6cb7ea224104795888&targetDt=${formattedDate}`;
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        setMovieList(data.boxOfficeResult.dailyBoxOfficeList);
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchMovieList();
+  }, [selectedMovie]);
+
+  const trTags = movieList.map((row, index) => {
     console.log(row.rank, row.movieNm, row.salesAmt, row.rankInten);
 
     let rankIntenText = row.rankInten;
@@ -40,7 +60,7 @@ const BoxRows = () => {
     ).padStart(2, "0")}월 ${String(openDt.getDate()).padStart(2, "0")}일`;
 
     return (
-      <tr className="trcl1" key={row.rank} onClick={() => handleRowClick(row)}>
+      <tr className="trcl1" key={index} onClick={() => handleRowClick(row)}>
         <td>{row.rank}</td>
         <td>{openDtFormatted}</td>
         <td>{row.movieNm}</td>
@@ -62,4 +82,5 @@ const BoxRows = () => {
     </>
   );
 };
-export default BoxRows;
+
+export default BoxRows2;

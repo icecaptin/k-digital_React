@@ -13,8 +13,8 @@ const BoxBox2 = () => {
                     return;
                 }
                 let formattedDate = selectedDate.replaceAll("-", "");
-                const mvlist = `http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=f5eef3421c602c6cb7ea224104795888&targetDt=${formattedDate}`;
-                const response = await fetch(mvlist);
+                const mvData = `http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=f5eef3421c602c6cb7ea224104795888&targetDt=${formattedDate}`;
+                const response = await fetch(mvData);
                 const data = await response.json();
                 setmvData(data);
                 console.log(data);
