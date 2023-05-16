@@ -18,6 +18,12 @@ const GalleryView = ({ inputKey }) => {
             console.error(error);
         }
     };
+    const titleArray = galleryData.filter((item, index, self) =>
+        index === self.findIndex((t) => (
+            t.galTitle === item.galTitle
+        ))
+    );
+
 
     useEffect(() => {
         searchKeywords();
@@ -27,19 +33,33 @@ const GalleryView = ({ inputKey }) => {
 
     return (
         <>
-            {galleryData.map((gallery) => (
-                <article className='grid' {...styles.contents}>
-                    <div key={gallery.galTitle}>
-                        <h2>{gallery.galTitle}</h2>
-                        <a href={gallery.galWebImageUrl}><img src={gallery.galWebImageUrl} alt={gallery.galTitle} className={styles.imageurl} /></a>
-                        <p>위치: {gallery.galPhotographyLocation}</p>
-                        <p><a href={`https://www.google.com/search?q=${encodeURIComponent(gallery.galTitle)}`} target="_blank" rel="noopener noreferrer">검색해보기</a></p>
-                        <p>{gallery.galSearchKeyword.split(',').map((keyword) => (<span key={keyword}>#{keyword.trim()}{' '}</span>))}</p>
-                    </div>
-                </article>
-            ))}
+            <article>
+                <div className={styles.row}>
+                    {titleArray.map((title, index) => (
+                        <div className={styles.column} key={index}>
+                            <article>
+                                <h2>{title.galTitle}</h2>
+                                {galleryData
+                                    .filter((gallery) => gallery.galTitle === title.galTitle)
+                                    .map((gallery) => (
+
+                                        <div className={styles.item} key={gallery.id}>
+                                            <a href={gallery.galWebImageUrl}> <img src={gallery.galWebImageUrl} alt={gallery.galTitle} className={styles.imageurl} /> </a>
+                                            <p>위치: {gallery.galPhotographyLocation}</p>
+                                            <p><a href={`https://www.google.com/search?q=${encodeURIComponent(gallery.galTitle)}`} target="_blank" rel="noopener noreferrer" > 검색해보기</a> </p>
+                                            <p className={styles.ptag}> {gallery.galSearchKeyword.split(",").map((keyword) => (<span key={keyword}>#{keyword.trim()} </span>))}
+                                            </p>
+                                        </div>
+
+                                    ))}
+                            </article>
+                        </div>
+                    ))}
+                </div>
+            </article>
         </>
     );
+
 };
 
 export default GalleryView;

@@ -33,7 +33,7 @@ const Tour = () => {
             <main>
                 <article>
                     <div className="grid">
-                        <input ref={txt1} type="text" id="txt1" name="txt1" placeholder="입력하세용" className={styles.inputtour} value={inputKey} onChange={handleInputChange} onKeyPress={handleKeyPress} required />
+                        <input ref={txt1} type="text" id="txt1" name="txt1" placeholder="입력하세용" className={styles.inputtour} value={inputKey} onChange={handleInputChange} onKeyDown={handleKeyPress} required />
                         <div className={styles.btns}>
                             <button onClick={searchKeywords}>검색</button>
                             <button onClick={searchClear}>취소</button>
