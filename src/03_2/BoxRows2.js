@@ -1,16 +1,7 @@
-import React, { useState, useEffect } from "react";
-import './BoxRows.module.css';
+import React from "react";
 
-const BoxRows2 = () => {
-  const [selectedMovie, setSelectedMovie] = useState(null);
-  const [movieList, setMovieList] = useState([]);
-
-  const handleRowClick = (row) => {
-    setSelectedMovie(row);
-  };
-
+const BoxRows2 = ({ movieList }) => {
   const showMv = (row) => {
-    console.log(row.openDt);
     return (
       <>
         <div>영화제목: {row.movieNm} 개봉일: {row.openDt}</div>
@@ -18,29 +9,11 @@ const BoxRows2 = () => {
     );
   };
 
-  useEffect(() => {
-    const fetchMovieList = async () => {
-      try {
-        if (selectedMovie) {
-          return;
-        }
-        let formattedDate = selectedMovie.replaceAll("-", "");
-        const apiUrl = `http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=f5eef3421c602c6cb7ea224104795888&targetDt=${formattedDate}`;
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        setMovieList(data.boxOfficeResult.dailyBoxOfficeList);
-        console.log(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchMovieList();
-  }, [selectedMovie]);
+  if (!movieList) {
+    return null; // movieList가 undefined인 경우 렌더링하지 않음
+  }
 
   const trTags = movieList.map((row, index) => {
-    console.log(row.rank, row.movieNm, row.salesAmt, row.rankInten);
-
     let rankIntenText = row.rankInten;
     let rankIntenColor = "";
 
@@ -60,7 +33,7 @@ const BoxRows2 = () => {
     ).padStart(2, "0")}월 ${String(openDt.getDate()).padStart(2, "0")}일`;
 
     return (
-      <tr className="trcl1" key={index} onClick={() => handleRowClick(row)}>
+      <tr className="trcl1" key={index}>
         <td>{row.rank}</td>
         <td>{openDtFormatted}</td>
         <td>{row.movieNm}</td>
@@ -73,12 +46,10 @@ const BoxRows2 = () => {
 
   return (
     <>
-      <tbody>{trTags}</tbody>
-      <tfoot>
-        <tr className="trcl2">
-          <td colSpan={6}>{selectedMovie && showMv(selectedMovie)}</td>
-        </tr>
-      </tfoot>
+      {trTags}
+      <tr className="trcl2">
+        <td colSpan={6}>{showMv(movieList[0])}</td>
+      </tr>
     </>
   );
 };
