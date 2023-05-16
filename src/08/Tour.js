@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import GalleryView from './GalleryView';
 import styles from './Tour.module.css';
 import loadingImg from './loading.gif';
+import homeimg from './korea.jpg';
 
 
 const Tour = () => {
@@ -47,6 +48,9 @@ const Tour = () => {
         <>
             <main>
                 <article>
+                    <div>
+                        <img className={styles.homeimg} src={homeimg} alt="홈 사진" />
+                    </div>
                     <div className="grid">
                         <input ref={txt1} type="text" id="txt1" name="txt1" placeholder="입력하세용" className={styles.inputtour} value={inputKey} onChange={handleInputChange} onKeyPress={handleKeyPress} required />
                         <div className={styles.btns}>

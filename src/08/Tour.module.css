@@ -17,3 +17,7 @@
     font-size: 18px;
     color: #888;
 }
+.homeimg{
+    margin-bottom: 50px;
+    width: -webkit-fill-available;
+}
