@@ -17,3 +17,13 @@
 .sphigh{
   color:rgb(190, 93, 93);
 }
+.horizontal {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.horizontal > div {
+  margin-right: 10px;
+  white-space: nowrap;
+}

@@ -39,18 +39,20 @@ const AirTable = () => {
                     ))}
                 </div>
                 <div className="result-container">
-                    {Object.keys(clickedData).map((type, idx) => (
-                        <div key={`clickedData${idx}`}>
-                            <span className={styles.spnormal}>{type}</span>
-                            {clickedData[type] === '낮음' ? (
-                                <span className={styles.splow}>{clickedData[type]}</span>
-                            ) : clickedData[type] === '보통' ? (
-                                <span className={styles.spmoderate}>{clickedData[type]}</span>
-                            ) : (
-                                <span className={styles.sphigh}>{clickedData[type]}</span>
-                            )}
-                        </div>
-                    ))}
+                    <div className={styles.horizontal}>
+                        {Object.keys(clickedData).map((type, idx) => (
+                            <div key={`clickedData${idx}`}>
+                                <span className={styles.spnormal}>{type}</span>
+                                {clickedData[type] === '낮음' ? (
+                                    <span className={styles.splow}>{clickedData[type]}</span>
+                                ) : clickedData[type] === '보통' ? (
+                                    <span className={styles.spmoderate}>{clickedData[type]}</span>
+                                ) : (
+                                    <span className={styles.sphigh}>{clickedData[type]}</span>
+                                )}
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div >
         </article>
