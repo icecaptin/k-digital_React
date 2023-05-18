@@ -9,8 +9,9 @@ import AirTable from './05_aircondition/AirTable';
 import Accident from './06_useEffect/Accident';
 import MyRef2 from './07_useref/MyRef2';
 import Tour from './08/Tour';
+import Fcst from './10_FcstView/Fcst';
 function App() {
-  const [page, setPage] = useState('hello');
+  const [page, setPage] = useState('tour');
   const changePage = (newPage) => {
     setPage(newPage);
   };
@@ -32,6 +33,8 @@ function App() {
         return <MyRef2 />;
       case 'tour':
         return <Tour />;
+      case 'fcst':
+        return <Fcst />;
       default:
         return null;
     }
@@ -50,6 +53,7 @@ function App() {
             <li><button onClick={() => changePage('accident')}>사고건수</button></li>
             <li><button onClick={() => changePage('myref2')}>myref</button></li>
             <li><button onClick={() => changePage('tour')}>Tour</button></li>
+            <li><button onClick={() => changePage('fcst')}>Fcst</button></li>
           </ul>
         </nav>
         {getPage()}
