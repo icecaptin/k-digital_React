@@ -40,3 +40,18 @@
   color:azure;
   float: right;
 }
+.lotto-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  background-color: #e5e5e5;
+  color: #333;
+  cursor: pointer;
+}
+
+.lotto-icon {
+  font-size: 1.2rem;
+}

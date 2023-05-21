@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import react from "react";
+import styles from './FcstMain.module.css';
 import xy from "./getxy.json";
 import { useState, useRef, useEffect } from "react";
 
@@ -34,7 +34,7 @@ const FcstMain = () => {
           </div>
         </div>
         <footer>
-          <Link to="/ultra" role="button">
+          <Link to="/ultra" role="button" className={styles.linkfcst}>
             초단기예보
           </Link>
           <Link to="/village" role="button">

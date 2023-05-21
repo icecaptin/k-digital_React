@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
+import { FaPlusCircle } from 'react-icons/fa';
 import Hello from './01/Hello.js'
 import MyClock from './02/MyClock';
 import BoxBox from './03/BoxBox';
@@ -10,8 +11,9 @@ import Accident from './06_useEffect/Accident';
 import MyRef2 from './07_useref/MyRef2';
 import Tour from './08/Tour';
 import Fcst from './10_FcstView/Fcst';
+import Lotto from './번외/Lotto';
 function App() {
-  const [page, setPage] = useState('tour');
+  const [page, setPage] = useState('fcst'); //기본 페이지 설정
   const changePage = (newPage) => {
     setPage(newPage);
   };
@@ -35,6 +37,8 @@ function App() {
         return <Tour />;
       case 'fcst':
         return <Fcst />;
+      case 'lotto':
+        return <Lotto />;
       default:
         return null;
     }
@@ -57,6 +61,13 @@ function App() {
           </ul>
         </nav>
         {getPage()}
+        <footer>
+          {/* 번외로또 버튼 */}
+          <button onClick={() => changePage('lotto')} className="lotto-button">
+            <FaPlusCircle className="lotto-icon" />
+            번외로또
+          </button>
+        </footer>
       </main>
     </>
   );
