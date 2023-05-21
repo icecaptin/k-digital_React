@@ -1,20 +1,20 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route } from "react-router-dom";
 import FcstNav from './FcstNav';
-import FcstMain from './FcstMain';
 import UltraSrtFcst from './UltraSrtFcst';
-import VilageFcst from './VilageFcst';
+import VillageFcst from './VillageFcst';
+import FcstMain from './FcstMain';
 
 const Fcst = () => {
   return (
-    <>
+    <main className="container">
+      <FcstNav />
       <Routes>
-        <Route path="/" element={<FcstMain />} />
-        <Route path="/UltraSrtFcst" element={<UltraSrtFcst />} />
-        <Route path="/VilageFcst" element={<VilageFcst />} />
+        <Route path='/' element={<FcstMain />} />
+        <Route path='/ultra' element={<UltraSrtFcst />} />
+        <Route path='/village' element={<VillageFcst />} />
       </Routes>
-    </>
+    </main>
   );
-};
+}
 
 export default Fcst;
