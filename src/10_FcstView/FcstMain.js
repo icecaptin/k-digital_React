@@ -1,14 +1,34 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styles from './FcstMain.module.css';
 import xy from "./getxy.json";
 import { useState, useRef, useEffect } from "react";
 
 const FcstMain = () => {
   const txtref = useRef();
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedX, setSelectedX] = useState("");
+  const [selectedY, setSelectedY] = useState("");
 
   useEffect(() => {
     txtref.current.focus();
   }, []);
+
+  const handleDateChange = (e) => {
+    setSelectedDate(e.target.value);
+  };
+
+  const handleCityChange = (e) => {
+    setSelectedCity(e.target.value);
+    const selectedItem = xy.find((item) => item["행정구역코드"] === Number(e.target.value));
+    if (selectedItem) {
+      setSelectedX(selectedItem["격자 X"]);
+      setSelectedY(selectedItem["격자 Y"]);
+    } else {
+      setSelectedX("");
+      setSelectedY("");
+    }
+  };
 
   const ops = xy.map((item) => (
     <option value={item["행정구역코드"]} key={item["행정구역코드"]}>
@@ -23,21 +43,17 @@ const FcstMain = () => {
           <h1>단기예보 선택</h1>
         </header>
         <div className="grid">
-          <div>
-            <input type="date" id="dt" name="dt" />
-          </div>
-          <div>
-            <select ref={txtref} id="sel" name="sel">
-              <option value="">선택</option>
-              {ops}
-            </select>
-          </div>
+          <input type="date" id="dt" name="dt" value={selectedDate} onChange={handleDateChange} />
+          <select ref={txtref} id="sel" name="sel" value={selectedCity} onChange={handleCityChange}>
+            <option value="">선택</option>
+            {ops}
+          </select>
         </div>
         <footer>
-          <Link to="/ultra" role="button" className={styles.linkfcst}>
+          <Link to={`/ultra?date=${selectedDate}&city=${selectedCity}&x=${selectedX}&y=${selectedY}`} role="button" className={styles.linkfcst}>
             초단기예보
           </Link>
-          <Link to="/village" role="button">
+          <Link to={`/village?date=${selectedDate}&city=${selectedCity}&x=${selectedX}&y=${selectedY}`} role="button">
             단기예보
           </Link>
         </footer>
