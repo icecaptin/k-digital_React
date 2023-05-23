@@ -14,9 +14,20 @@ const FcstMain = () => {
     txtref.current.focus();
   }, []);
 
-  const handleDateChange = (e) => {
-    setSelectedDate(e.target.value);
+  const formatDate = (dateString) => {
+    const dateObj = new Date(dateString);
+    const year = dateObj.getFullYear();
+    const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+    const day = String(dateObj.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
   };
+
+
+  const handleDateChange = (e) => {
+    const formattedDate = formatDate(e.target.value);
+    setSelectedDate(formattedDate);
+  };
+
 
   const handleCityChange = (e) => {
     setSelectedCity(e.target.value);
@@ -56,6 +67,7 @@ const FcstMain = () => {
           <Link to={`/village?date=${selectedDate}&city=${selectedCity}&x=${selectedX}&y=${selectedY}`} role="button">
             단기예보
           </Link>
+
         </footer>
       </article>
     </>

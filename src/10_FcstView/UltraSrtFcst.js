@@ -9,24 +9,28 @@ const UltraSrtFcst = () => {
     const queryParams = new URLSearchParams(location.search);
     const date = queryParams.get("date");
     const cityCode = queryParams.get("city");
-    const xloc = queryParams.get("x");
-    const yloc = queryParams.get("y");
 
-    // "1단계"에 해당하는 도시 이름 가져오기
     const selectedCity = xy.find((item) => item["행정구역코드"] === Number(cityCode))?.["1단계"];
 
-    const x = xy.find((item) => item["1단계"] === selectedCity)?.["격자 X"];
-    const y = xy.find((item) => item["1단계"] === selectedCity)?.["격자 Y"];
+    const xloc = xy.find((item) => item["1단계"] === selectedCity)?.["격자 X"];
+    const yloc = xy.find((item) => item["1단계"] === selectedCity)?.["격자 Y"];
 
     const [forecastData, setForecastData] = useState([]);
 
     const code = getcode
-        .filter((item) => item["예보구분"] === "단기예보")
-        .map((item) => (
-            <option value={item["항목값"]} key={item["항목값"]}>
-                {item["항목명"]}
-            </option>
-        ));
+        .filter((item) => item["예보구분"] === "초단기예보")
+        .map((item) => ({
+            value: item["항목값"],
+            label: item["항목명"],
+        }));
+
+    const generateBaseTime = () => {
+        const baseTimes = [];
+        for (let hour = 6; hour <= 24; hour++) {
+            baseTimes.push(`${hour.toString().padStart(2, "0")}00`);
+        }
+        return baseTimes;
+    };
 
     const handleTypeChange = (e) => {
         setSelectedType(e.target.value);
@@ -34,27 +38,38 @@ const UltraSrtFcst = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const url = `https://apis.data.go.kr/${cityCode}/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=qM4okcjM%2BI0QuL7Ij3ga3WGbLeimcGOVHaIZM4yqK3xPeBrL1v43dW52%2FNMkHmqGQhqNHh%2BWQl4Rw%2B7WJ6VRwQ%3D%3D&numOfRows=10&dataType=JSON&pageNo=1&base_date=${date}&base_time=0600&nx=${x}&ny=${y}`;
-            
-            // 비동기 요청 코드 작성
-            const response = await fetch(url);
-            const data = await response.json();
+            const baseTimes = generateBaseTime();
+            const formattedData = [];
 
-            // 데이터 가공 및 상태 업데이트
-            const forecastItems = data?.response.body.items.item;
-            if (forecastItems) {
-                const formattedData = forecastItems.map((item) => ({
-                    category: item.category,
-                    baseDate: item.baseDate,
-                    baseTime: item.baseTime,
-                    obsrValue: item.obsrValue,
-                }));
-                setForecastData(formattedData);
+            for (let i = 0; i < baseTimes.length; i++) {
+                const url = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=qM4okcjM%2BI0QuL7Ij3ga3WGbLeimcGOVHaIZM4yqK3xPeBrL1v43dW52%2FNMkHmqGQhqNHh%2BWQl4Rw%2B7WJ6VRwQ%3D%3D&numOfRows=60&pageNo=1&base_date=${date.replace(/-/g, "")}&base_time=${baseTimes[i]}&nx=${xloc}&ny=${yloc}`;
+
+                const response = await fetch(url);
+                const xmlResponse = await response.text();
+
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xmlResponse, "text/xml");
+
+                const items = xmlDoc.getElementsByTagName("item");
+                const itemsData = Array.from(items).map((item) => {
+                    const obsrValue = item.getElementsByTagName("obsrValue")[0]?.textContent;
+                    return {
+                        category: item.getElementsByTagName("category")[0]?.textContent,
+                        baseDate: item.getElementsByTagName("baseDate")[0]?.textContent,
+                        baseTime: item.getElementsByTagName("baseTime")[0]?.textContent,
+                        obsrValue: Number(obsrValue), // 값을 숫자로 변환하여 저장
+                    };
+                });
+
+                formattedData.push(...itemsData);
             }
+
+            setForecastData(formattedData);
         };
 
         fetchData();
-    }, [cityCode, date, x, y]);
+
+    }, [date, xloc, yloc]);
 
     return (
         <>
@@ -64,7 +79,11 @@ const UltraSrtFcst = () => {
             </p>
             <select value={selectedType} onChange={handleTypeChange}>
                 <option value="">선택</option>
-                {code}
+                {code.map((item) => (
+                    <option value={item.value} key={item.value}>
+                        {item.label}
+                    </option>
+                ))}
             </select>
             <table>
                 <thead>
@@ -76,14 +95,26 @@ const UltraSrtFcst = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {forecastData.map((item, index) => (
-                        <tr key={index}>
-                            <td>{item.category}</td>
-                            <td>{item.baseDate}</td>
-                            <td>{item.baseTime}</td>
-                            <td>{item.obsrValue}</td>
+                    {selectedType !== "" ? (
+                        forecastData
+                            .filter((item) => item.category === selectedType)
+                            .map((item, index) => {
+                                const formattedTime = `${item.baseTime.slice(0, 2)}:${item.baseTime.slice(2)}`;
+                                return (
+                                    <tr key={index}>
+                                        <td>{selectedType}</td>
+                                        <td>{item.baseDate}</td>
+                                        <td>{formattedTime}</td>
+                                        <td>{item.obsrValue}</td>
+                                    </tr>
+                                );
+                            })
+                    ) : (
+                        <tr>
+                            <td colSpan="4">항목을 선택하세요.</td>
                         </tr>
-                    ))}
+                    )}
+
                 </tbody>
             </table>
         </>
