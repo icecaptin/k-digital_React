@@ -12,6 +12,9 @@ const FcstMain = () => {
 
   useEffect(() => {
     txtref.current.focus();
+    const currentDate = new Date();
+    const formattedDate = formatDate(currentDate);
+    setSelectedDate(formattedDate);
   }, []);
 
   const formatDate = (dateString) => {
