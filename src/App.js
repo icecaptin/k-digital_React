@@ -1,32 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import { FaPlusCircle } from 'react-icons/fa';
-import Hello from './01/Hello.js'
+import Hello from './01/Hello';
 import MyClock from './02/MyClock';
 import BoxBox from './03/BoxBox';
 import BoxBox2 from './03_2/BoxBox2';
-import MyDiv from './04/MyDiv';
 import AirTable from './05_aircondition/AirTable';
 import Accident from './06_useEffect/Accident';
 import MyRef2 from './07_useref/MyRef2';
 import Tour from './08/Tour';
 import Fcst from './10_FcstView/Fcst';
 import Lotto from './번외/Lotto';
+import styles from './App.module.css';
 function App() {
-  const [page, setPage] = useState('fcst'); //기본 페이지 설정
+  const [page, setPage] = useState('hello'); //기본 페이지 설정
   const changePage = (newPage) => {
     setPage(newPage);
   };
   const getPage = () => {
     switch (page) {
+      case 'hello':
+        return <Hello />;
       case 'clock':
         return <MyClock />;
       case 'box':
         return <BoxBox />;
       case 'box2':
         return <BoxBox2 />;
-      case 'div':
-        return <MyDiv />;
       case 'air':
         return <AirTable />;
       case 'accident':
@@ -48,25 +47,26 @@ function App() {
       <main className="container" data-theme="dark">
         <nav>
           <ul>
-            <li><button onClick={() => changePage('clock')}>시계</button></li>
-            <li><button onClick={() => changePage('box')}>박스오피스1</button></li>
-            <li><button onClick={() => changePage('box2')}>박스오피스2</button></li>
-            <li><button onClick={() => changePage('div')}>MyDiv</button></li>
-            <li><button onClick={() => changePage('air')}>공기질</button></li>
-            <li><button onClick={() => changePage('accident')}>사고건수</button></li>
-            <li><button onClick={() => changePage('myref2')}>myref</button></li>
-            <li><button onClick={() => changePage('tour')}>Tour</button></li>
-            <li><button onClick={() => changePage('fcst')}>Fcst</button></li>
+          <li><div className={`${page === 'hello' ? styles.selected : ''} ${styles.hovered}`} onClick={() => changePage('hello')}>시작</div></li>
+            <li><div className={`${page === 'clock' ? styles.selected : ''} ${styles.hovered}`} onClick={() => changePage('clock')}>시계</div></li>
+            <li><div className={`${page === 'box' ? styles.selected : ''} ${styles.hovered}`} onClick={() => changePage('box')}>박스오피스1</div></li>
+            <li><div className={`${page === 'box2' ? styles.selected : ''} ${styles.hovered}`} onClick={() => changePage('box2')}>박스오피스2</div></li>
+            <li><div className={`${page === 'air' ? styles.selected : ''} ${styles.hovered}`} onClick={() => changePage('air')}>공기질</div></li>
+            <li><div className={`${page === 'accident' ? styles.selected : ''} ${styles.hovered}`} onClick={() => changePage('accident')}>2022사고건수</div></li>
+            <li><div className={`${page === 'myref2' ? styles.selected : ''} ${styles.hovered}`} onClick={() => changePage('myref2')}>myref</div></li>
+            <li><div className={`${page === 'tour' ? styles.selected : ''} ${styles.hovered}`} onClick={() => changePage('tour')}>명소찾기</div></li>
+            <li><div className={`${page === 'fcst' ? styles.selected : ''} ${styles.hovered}`} onClick={() => changePage('fcst')}>단기예보</div></li>
           </ul>
         </nav>
+        <hr />
         {getPage()}
-        {/* <footer>
+      </main>
+      {/* <footer>
           <button onClick={() => changePage('lotto')} className="lotto-button">
             <FaPlusCircle className="lotto-icon" />
             번외로또
           </button>
         </footer> */} {/* 잠시 보류*/}
-      </main>
     </>
   );
 }

@@ -1,26 +1,20 @@
-import logo from '../logo.svg';
-import './Hello.css';
-
 const Hello = () => {
-    let name = 'yang';
-    let git = 'https://github.com/icecaptin';
-
-
     return (
         <>
             <main className='container'>
-                <article data-theme='dark'>
-                    <div>
-                        <img src={logo} alt='react' className='imgspin' />
-                        <footer>
-                            <hgroup>
-                                <h1>yayaya</h1>
-                                <h1>{name}</h1>
-                                <h1><a href={git}>{git}</a></h1>
-                            </hgroup>
-                        </footer>
-                    </div>
-                </article>
+                <h2>아이스대장</h2>
+                <ul>
+                    <li>E-mail: tjdqn0228@naver.com</li>
+                    <li>
+                        K=digital 3기 github주소: <br />
+                        <a href="https://github.com/pnumin/K-digital-2023-3" role="button" class="outline">교수's Github</a>
+                        <a href="https://github.com/icecaptin" role="button" class="outline">아대's Github</a>
+                        <a href="https://github.com/icecaptin/JavaBasic" role="button" class="outline">아대's 자바깃허브</a>
+                    </li>
+                </ul>
+                <p>
+                    이 작업공간은 아이스대장의 작업공간입니다. 풀스택 개발자가 되기위해 열심히 하고잇슴다.
+                </p>
             </main>
         </>
     );

@@ -45,7 +45,7 @@ const FcstMain = () => {
   };
 
   const ops = xy.map((item) => (
-    <option value={item["행정구역코드"]} key={item["행정구역코드"]}>
+    <option value={item["행정구역코드"]} key={item["행정구역코드"]} selected={item["1단계"] === '부산광역시'}>
       {item["1단계"]}
     </option>
   ));
@@ -64,13 +64,14 @@ const FcstMain = () => {
           </select>
         </div>
         <footer>
-          <Link to={`/ultra?date=${selectedDate}&city=${selectedCity}&x=${selectedX}&y=${selectedY}`} role="button" className={styles.linkfcst}>
-            초단기예보
-          </Link>
-          <Link to={`/village?date=${selectedDate}&city=${selectedCity}&x=${selectedX}&y=${selectedY}`} role="button">
-            단기예보
-          </Link>
-
+          <div className={styles.linkdiv}>
+            <Link to={`/ultra?date=${selectedDate}&city=${selectedCity}&x=${selectedX}&y=${selectedY}`} role="button" className={styles.linkfcst}>
+              초단기예보
+            </Link>
+            <Link to={`/village?date=${selectedDate}&city=${selectedCity}&x=${selectedX}&y=${selectedY}`} role="button">
+              단기예보
+            </Link>
+          </div>
         </footer>
       </article>
     </>

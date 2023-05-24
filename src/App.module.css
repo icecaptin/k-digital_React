@@ -1,0 +1,12 @@
+.selected {
+    background-color: rgb(8, 136, 179);
+  }
+  
+li div:hover {
+    background-color: rgb(14, 69, 219);
+  }
+  hr {
+    border: none;
+    border-top: 1px solid lightgray;
+  }
+  
