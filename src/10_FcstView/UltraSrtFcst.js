@@ -52,12 +52,12 @@ const UltraSrtFcst = () => {
 
                 const items = xmlDoc.getElementsByTagName("item");
                 const itemsData = Array.from(items).map((item) => {
-                    const obsrValue = item.getElementsByTagName("obsrValue")[0]?.textContent;
+                    const obsrValue = item.getElementsByTagName("obsrValue")[0]?.textContent; // 값 가져오기
                     return {
                         category: item.getElementsByTagName("category")[0]?.textContent,
                         baseDate: item.getElementsByTagName("baseDate")[0]?.textContent,
                         baseTime: item.getElementsByTagName("baseTime")[0]?.textContent,
-                        obsrValue: Number(obsrValue), // 값을 숫자로 변환하여 저장
+                        fcstValue: Number(obsrValue), // obsrValue를 fcstValue로 수정
                     };
                 });
 
@@ -100,12 +100,32 @@ const UltraSrtFcst = () => {
                             .filter((item) => item.category === selectedType)
                             .map((item, index) => {
                                 const formattedTime = `${item.baseTime.slice(0, 2)}:${item.baseTime.slice(2)}`;
+                                const selectedItem = code.find((codeItem) => codeItem.value === item.category);
+                                const itemLabel = selectedItem ? selectedItem.label : ""; // 항목명 가져오기
+                                const itemValue = selectedItem ? selectedItem.value : ""; // 항목값 가져오기
+                                let formattedValue = "";
+                                if (item.fcstValue !== undefined) {
+                                    if (item.category === "T1H") {
+                                        formattedValue = `${item.fcstValue} ºC`;
+                                    } else if (item.category === "REH") {
+                                        formattedValue = `${item.fcstValue} %`;
+                                    } else if (item.category === "RN1") {
+                                        formattedValue = `${item.fcstValue} mm`;
+                                    } else if (item.category === "UUU" || item.category === "VVV" || item.category === "WSD") {
+                                        formattedValue = `${item.fcstValue} m/s`;
+                                    } else if (item.category === "VEC") {
+                                        formattedValue = `${item.fcstValue} deg`;
+                                    }
+                                    else {
+                                        formattedValue = item.fcstValue;
+                                    }
+                                }
                                 return (
                                     <tr key={index}>
-                                        <td>{selectedType}</td>
+                                        <td>{itemLabel} ({itemValue})</td>
                                         <td>{item.baseDate}</td>
                                         <td>{formattedTime}</td>
-                                        <td>{item.obsrValue}</td>
+                                        <td>{formattedValue}</td>
                                     </tr>
                                 );
                             })
