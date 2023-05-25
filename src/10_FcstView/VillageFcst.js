@@ -16,6 +16,7 @@ const VillageFcst = () => {
     const yloc = xy.find((item) => item["1단계"] === selectedCity)?.["격자 Y"];
 
     const [forecastData, setForecastData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     let code = getcode
         .filter((item) => item["예보구분"] === "단기예보")
@@ -65,10 +66,10 @@ const VillageFcst = () => {
             }
 
             setForecastData(formattedData);
+            setIsLoading(false);
         };
 
         fetchData();
-
     }, [date, xloc, yloc]);
 
     return (
@@ -85,56 +86,60 @@ const VillageFcst = () => {
                     </option>
                 ))}
             </select>
-            <table>
-                <thead>
-                    <tr>
-                        <th scope="col">항목명</th>
-                        <th scope="col">예측일자</th>
-                        <th scope="col">예측시간</th>
-                        <th scope="col">예보</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {selectedType !== "" ? (
-                        forecastData
-                            .filter((item) => item.category === selectedType)
-                            .map((item, index) => {
-                                const formattedTime = `${item.baseTime.slice(0, 2)}:${item.baseTime.slice(2)}`;
-                                const selectedItem = code.find((codeItem) => codeItem.value === item.category);
-                                const itemLabel = selectedItem ? selectedItem.label : ""; // 항목명 가져오기
-                                const itemValue = selectedItem ? selectedItem.value : ""; // 항목값 가져오기
-                                let formattedValue = "";
-                                if (item.fcstValue !== undefined) {
-                                    if (item.category === "TMP" || item.category === "TMN" || item.category === "TMX") {
-                                        formattedValue = `${item.fcstValue} ºC`;
-                                    } else if (item.category === "POP" || item.category === "REH") {
-                                        formattedValue = `${item.fcstValue} %`;
-                                    } else if (item.category === "UUU" || item.category === "VVV" || item.category === "WSD") {
-                                        formattedValue = `${item.fcstValue} m/s`;
-                                    } else if (item.category === "WAV") {
-                                        formattedValue = `${item.fcstValue} M`;
-                                    } else if (item.category === "VEC") {
-                                        formattedValue = `${item.fcstValue} deg`;
-                                    } else {
-                                        formattedValue = item.fcstValue;
-                                    }
-                                }
-                                return (
-                                    <tr key={index}>
-                                        <td>{itemLabel} ({itemValue})</td> {/* 수정된 부분 */}
-                                        <td>{item.baseDate}</td>
-                                        <td>{formattedTime}</td>
-                                        <td>{formattedValue}</td>
-                                    </tr>
-                                );
-                            })
-                    ) : (
+            {isLoading ? (
+                <p>Loading...</p>
+            ) : (
+                <table>
+                    <thead>
                         <tr>
-                            <td colSpan="4">항목을 선택하세요.</td>
+                            <th scope="col">항목명</th>
+                            <th scope="col">예측일자</th>
+                            <th scope="col">예측시간</th>
+                            <th scope="col">예보</th>
                         </tr>
-                    )}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {selectedType !== "" ? (
+                            forecastData
+                                .filter((item) => item.category === selectedType)
+                                .map((item, index) => {
+                                    const formattedTime = `${item.baseTime.slice(0, 2)}:${item.baseTime.slice(2)}`;
+                                    const selectedItem = code.find((codeItem) => codeItem.value === item.category);
+                                    const itemLabel = selectedItem ? selectedItem.label : ""; // 항목명 가져오기
+                                    const itemValue = selectedItem ? selectedItem.value : ""; // 항목값 가져오기
+                                    let formattedValue = "";
+                                    if (item.fcstValue !== undefined) {
+                                        if (item.category === "TMP" || item.category === "TMN" || item.category === "TMX") {
+                                            formattedValue = `${item.fcstValue} ºC`;
+                                        } else if (item.category === "POP" || item.category === "REH") {
+                                            formattedValue = `${item.fcstValue} %`;
+                                        } else if (item.category === "UUU" || item.category === "VVV" || item.category === "WSD") {
+                                            formattedValue = `${item.fcstValue} m/s`;
+                                        } else if (item.category === "WAV") {
+                                            formattedValue = `${item.fcstValue} M`;
+                                        } else if (item.category === "VEC") {
+                                            formattedValue = `${item.fcstValue} deg`;
+                                        } else {
+                                            formattedValue = item.fcstValue;
+                                        }
+                                    }
+                                    return (
+                                        <tr key={index}>
+                                            <td>{itemLabel} ({itemValue})</td>
+                                            <td>{item.baseDate}</td>
+                                            <td>{formattedTime}</td>
+                                            <td>{formattedValue}</td>
+                                        </tr>
+                                    );
+                                })
+                        ) : (
+                            <tr>
+                                <td colSpan="4">항목을 선택하세요.</td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            )}
         </>
     );
 };
