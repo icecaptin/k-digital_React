@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import GalleryView from './GalleryView';
 import styles from './Tour.module.css';
 import loadingImg from './loading.gif';

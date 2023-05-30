@@ -9,10 +9,12 @@ import Accident from './06_useEffect/Accident';
 import MyRef2 from './07_useref/MyRef2';
 import Tour from './08/Tour';
 import Fcst from './10_FcstView/Fcst';
+import Cnt from './11/Cnt';
+import CntAtom from './11/CntAtom';
 import Lotto from './번외/Lotto';
 import styles from './App.module.css';
 function App() {
-  const [page, setPage] = useState('hello'); //기본 페이지 설정
+  const [page, setPage] = useState('cnt'); //기본 페이지 설정
   const changePage = (newPage) => {
     setPage(newPage);
   };
@@ -36,6 +38,10 @@ function App() {
         return <Tour />;
       case 'fcst':
         return <Fcst />;
+      case 'cnt':
+        return <Cnt />;
+      case 'cntatom':
+        return <CntAtom />;
       case 'lotto':
         return <Lotto />;
       default:
@@ -47,7 +53,7 @@ function App() {
       <main className="container" data-theme="dark">
         <nav>
           <ul>
-          <li><div className={`${page === 'hello' ? styles.selected : ''} ${styles.hovered}`} onClick={() => changePage('hello')}>시작</div></li>
+            <li><div className={`${page === 'hello' ? styles.selected : ''} ${styles.hovered}`} onClick={() => changePage('hello')}>시작</div></li>
             <li><div className={`${page === 'clock' ? styles.selected : ''} ${styles.hovered}`} onClick={() => changePage('clock')}>시계</div></li>
             <li><div className={`${page === 'box' ? styles.selected : ''} ${styles.hovered}`} onClick={() => changePage('box')}>박스오피스1</div></li>
             <li><div className={`${page === 'box2' ? styles.selected : ''} ${styles.hovered}`} onClick={() => changePage('box2')}>박스오피스2</div></li>
@@ -56,6 +62,8 @@ function App() {
             <li><div className={`${page === 'myref2' ? styles.selected : ''} ${styles.hovered}`} onClick={() => changePage('myref2')}>myref</div></li>
             <li><div className={`${page === 'tour' ? styles.selected : ''} ${styles.hovered}`} onClick={() => changePage('tour')}>명소찾기</div></li>
             <li><div className={`${page === 'fcst' ? styles.selected : ''} ${styles.hovered}`} onClick={() => changePage('fcst')}>단기예보</div></li>
+            <li><div className={`${page === 'cnt' ? styles.selected : ''} ${styles.hovered}`} onClick={() => changePage('cnt')}>Cnt</div></li>
+            <li><div className={`${page === 'cntatom' ? styles.selected : ''} ${styles.hovered}`} onClick={() => changePage('cntatom')}>CntAtom</div></li>
           </ul>
         </nav>
         <hr />

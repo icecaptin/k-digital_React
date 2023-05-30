@@ -44,7 +44,7 @@ const VillageFcst = () => {
 
             for (let i = 0; i < baseTimes.length; i++) {
                 const url = `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=qM4okcjM%2BI0QuL7Ij3ga3WGbLeimcGOVHaIZM4yqK3xPeBrL1v43dW52%2FNMkHmqGQhqNHh%2BWQl4Rw%2B7WJ6VRwQ%3D%3D&numOfRows=900&pageNo=1&base_date=${date.replace(/-/g, "")}&base_time=0500&nx=${xloc}&ny=${yloc}`;
-
+                
                 const response = await fetch(url);
                 const xmlResponse = await response.text();
 
@@ -61,7 +61,7 @@ const VillageFcst = () => {
                         fcstValue: fcstValue, // 값을 숫자로 변환하여 저장
                     };
                 });
-
+                console.log(itemsData);
                 formattedData.push(...itemsData);
             }
 
