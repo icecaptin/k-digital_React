@@ -14,7 +14,7 @@ import CntAtom from './11/CntAtom';
 import Lotto from './번외/Lotto';
 import styles from './App.module.css';
 function App() {
-  const [page, setPage] = useState('cnt'); //기본 페이지 설정
+  const [page, setPage] = useState('cntatom'); //기본 페이지 설정
   const changePage = (newPage) => {
     setPage(newPage);
   };
