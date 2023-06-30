@@ -14,7 +14,7 @@ import CntAtom from './11/CntAtom';
 import Lotto from './번외/Lotto';
 import styles from './App.module.css';
 function App() {
-  const [page, setPage] = useState('cntatom'); //기본 페이지 설정
+  const [page, setPage] = useState('lotto'); //기본 페이지 설정
   const changePage = (newPage) => {
     setPage(newPage);
   };
@@ -64,6 +64,7 @@ function App() {
             <li><div className={`${page === 'fcst' ? styles.selected : ''} ${styles.hovered}`} onClick={() => changePage('fcst')}>단기예보</div></li>
             <li><div className={`${page === 'cnt' ? styles.selected : ''} ${styles.hovered}`} onClick={() => changePage('cnt')}>Cnt</div></li>
             <li><div className={`${page === 'cntatom' ? styles.selected : ''} ${styles.hovered}`} onClick={() => changePage('cntatom')}>CntAtom</div></li>
+            <li><div className={`${page === 'lotto' ? styles.selected : ''} ${styles.hovered}`} onClick={() => changePage('lotto')}>로또</div></li>
           </ul>
         </nav>
         <hr />

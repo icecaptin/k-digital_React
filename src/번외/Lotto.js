@@ -4,6 +4,29 @@ const LottoCheck = () => {
   const [userNumbers, setUserNumbers] = useState("");
   const [winningNumbers, setWinningNumbers] = useState("");
   const [result, setResult] = useState("");
+  const [randomNumbers, setRandomNumbers] = useState([]);
+
+  const generateRandomNumbers = () => {
+    const lines = [];
+
+    for (let i = 0; i < 5; i++) {
+      const numbers = [];
+
+      while (numbers.length < 6) {
+        const randomNumber = Math.floor(Math.random() * 45) + 1;
+
+        if (!numbers.includes(randomNumber)) {
+          numbers.push(randomNumber);
+        }
+      }
+
+      numbers.sort((a, b) => a - b); // 작은 숫자부터 정렬
+
+      lines.push(numbers.join(", "));
+    }
+
+    setRandomNumbers(lines);
+  };
 
   const checkNumbers = () => {
     const userNumbersArray = userNumbers.split("\n").join("").split(" ");
@@ -40,6 +63,11 @@ const LottoCheck = () => {
       <textarea value={winningNumbers} onChange={(e) => setWinningNumbers(e.target.value)} />
       <button onClick={checkNumbers}>확인</button>
       <p>{result}</p>
+
+      <button onClick={generateRandomNumbers}>랜덤 번호 생성</button>
+      {randomNumbers.map((numbers, index) => (
+        <p key={index}>생성된 랜덤 번호 {index + 1}: {numbers}</p>
+      ))}
     </div>
   );
 };
