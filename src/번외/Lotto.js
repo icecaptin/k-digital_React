@@ -66,7 +66,7 @@ const LottoCheck = () => {
 
       <button onClick={generateRandomNumbers}>랜덤 번호 생성</button>
       {randomNumbers.map((numbers, index) => (
-        <p key={index}>생성된 랜덤 번호 {index + 1}: {numbers}</p>
+        <p key={index}>생성된 랜덤 번호: {numbers}</p>
       ))}
     </div>
   );
