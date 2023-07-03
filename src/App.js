@@ -70,12 +70,6 @@ function App() {
         <hr />
         {getPage()}
       </main>
-      {/* <footer>
-          <button onClick={() => changePage('lotto')} className="lotto-button">
-            <FaPlusCircle className="lotto-icon" />
-            번외로또
-          </button>
-        </footer> */} {/* 잠시 보류*/}
     </>
   );
 }
