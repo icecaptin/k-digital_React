@@ -5,9 +5,3 @@
 
 
 npm run build 하고나서 firebase deploy
-
-
-
-git fetch --all
-git reset --hard origin/main
-git pull 
